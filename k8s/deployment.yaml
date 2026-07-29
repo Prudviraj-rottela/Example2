@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example2-api
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example2-api
+  template:
+    metadata:
+      labels:
+        app: example2-api
+    spec:
+      containers:
+      - name: api
+        image: python:3.11-slim
+        ports:
+        - containerPort: 8080
