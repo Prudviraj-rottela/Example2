@@ -13,8 +13,20 @@ spec:
       labels:
         app: example2-api
     spec:
+      # INTENTIONAL: privileged / host access (bad K8s hygiene for demo review)
+      hostNetwork: true
       containers:
       - name: api
-        image: python:3.11-slim
+        # vs main: python:3.11-slim → node:14-alpine (EOL, many CVEs, not in golden catalog)
+        image: node:14-alpine
         ports:
         - containerPort: 8080
+        securityContext:
+          privileged: true
+          allowPrivilegeEscalation: true
+          runAsUser: 0
+        env:
+        - name: DB_PASSWORD
+          value: "HardcodedK8sPassword!"
+        - name: API_TOKEN
+          value: "ghp_demoMaliciousTokenXXXXXXXX"
