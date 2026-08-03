@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: api
-        image: python:3.11-slim
+        image: python:3.12-slim
         ports:
         - containerPort: 8080
